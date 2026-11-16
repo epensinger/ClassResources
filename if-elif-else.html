@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.7.1 if-elif-else Statements · CS Principles</title>
+<style>
+:root{color-scheme:light;--paper:#f6efe7;--white:#fcfdff;--ink:#172441;--muted:#63534a;--line:#dfc9ba;--green:#843c2a;--lime:#f6c788;--code:#352923;--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.5 "Inter",system-ui,sans-serif}button{font:inherit;cursor:pointer;color:inherit}button:focus-visible,[tabindex]:focus-visible{outline:3px solid #546bca;outline-offset:4px}button:disabled{opacity:.45;cursor:default}
+.shell{width:min(1330px,100%);margin:auto;padding:0 clamp(18px,4vw,58px)}header,footer{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0}header{border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:12px;font-weight:750}.mark{display:grid;place-items:center;background:var(--green);color:var(--lime);border-radius:9px;width:40px;height:40px;font:700 17px var(--mono)}.bar{display:flex;gap:8px;align-items:center}.btn,.answer,.option{border:1px solid var(--line);background:var(--white);border-radius:8px;padding:9px 14px;font-weight:650}.btn:hover:not(:disabled),.answer:hover,.option:hover{background:#fae8d5}.primary{background:var(--green);border-color:var(--green);color:white}.primary:hover:not(:disabled){background:#a24c36}
+main{padding:clamp(20px,4vh,44px) 0 24px;min-height:68vh}h1,h2,p{margin:0}h1,h2{line-height:1.04;letter-spacing:-.045em}h1{font-size:clamp(42px,7vw,100px)}h2{font-size:clamp(36px,5vw,67px)}code{font-family:var(--mono)}.eyebrow{color:var(--green);font:700 13px var(--mono);text-transform:uppercase;letter-spacing:.12em;margin-bottom:11px}.intro{margin:13px 0 21px;font-size:clamp(17px,1.7vw,22px);color:var(--muted);max-width:76ch}.hero{display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:30px;background:var(--white);border:1px solid var(--line);border-radius:22px;padding:clamp(25px,5vw,70px);min-height:57vh}.hero h1{font-size:clamp(38px,5.4vw,77px)}.hero .intro{margin:24px 0}.hero-code{background:var(--code);color:white;border-radius:16px;padding:clamp(18px,3vw,36px);display:grid;gap:12px;font:clamp(15px,2.4vw,29px)/1.45 var(--mono)}.hero-code span:first-child{color:var(--lime)}
+.grid{display:grid;grid-template-columns:minmax(0,1.24fr) minmax(260px,.76fr);gap:20px;align-items:start}.panel{border:1px solid var(--line);background:var(--white);border-radius:14px;overflow:hidden}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 15px;border-bottom:1px solid var(--line);font-weight:750}.code-panel{background:var(--code);color:#f3f9ef;border-color:var(--code)}.code-panel .panel-head{border-color:#4e6080;color:var(--lime)}pre{margin:0;padding:15px 0;overflow:auto;max-height:310px;font:clamp(12px,1.6vw,18px)/1.65 var(--mono);tab-size:4}.line{display:block;padding:0 16px;min-height:1.65em}.line.active{background:#624539;color:#fff0d9}.line.skipped{color:#b3c2dd}
+.config,.explain,.question{padding:15px}.config,.question{border-top:1px solid var(--line)}.config-label,.question strong{display:block;margin-bottom:8px}.choices{display:flex;flex-wrap:wrap;gap:8px}.option{font-size:14px}.option[aria-pressed=true]{background:var(--lime);border-color:#a55d56}.answers{display:grid;gap:6px}.answer{text-align:left;font-size:15px;padding:6px 11px}.answer[aria-pressed=true]{border-color:var(--green);background:#fae8d5}.feedback{font-weight:650;margin-top:8px}.feedback:empty{margin:0}.canvas-panel .panel-head{flex-wrap:wrap}.canvas-wrap{padding:9px 13px 0}.canvas{position:relative;width:min(100%,355px);aspect-ratio:1;margin:auto;background:#fff8ee;border:1px solid #d2b5a0;border-radius:8px;overflow:hidden;cursor:crosshair}.shape{position:absolute;pointer-events:none;transform:translate(-50%,-50%)}.shape{border-radius:50%}.status{padding:9px 13px 13px;min-height:62px;font-size:14px;font-family:var(--mono);color:var(--muted)}.keys{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;padding-top:8px}.keys .btn{font-size:13px;padding:4px 8px}.small{font-size:14px;color:var(--muted)}.note{padding:20px;border-radius:14px;border:1px solid var(--line);background:var(--white)}.note h3{margin:0 0 8px}.note p+p{margin-top:10px}
+footer{border-top:1px solid var(--line)}.progress{display:flex;align-items:center;gap:12px;color:var(--muted);font:700 13px var(--mono)}progress{width:clamp(45px,13vw,180px);height:9px;accent-color:var(--green)}dialog{width:min(460px,calc(100% - 30px));border:1px solid var(--line);border-radius:16px;background:var(--white);color:var(--ink);padding:20px}dialog::backdrop{background:#35292380}dialog .answers{margin-top:10px}[hidden]{display:none!important}
+@media(max-width:760px){.grid,.hero{grid-template-columns:1fr}.hero{min-height:0}.hero-code{gap:4px}.demo-grid .canvas-panel{grid-row:2}.brand .small, .key-help{display:none}header,footer{gap:6px}.btn{padding:7px 10px}}
+
+.line.error{background:#75354b;color:white}.line-number{display:inline-block;width:2.6em;color:#b3c2dd;user-select:none}.property-label{font:700 14px var(--mono);color:var(--muted)}.swatch{display:inline-block;width:12px;height:12px;border-radius:50%;border:1px solid #8b96ac;margin-right:6px}
+.start{margin-top:24px}h2+.grid{margin-top:18px}.config summary{cursor:pointer;font-weight:650}.naming{margin-top:8px}
+.canvas{display:block;touch-action:none;background:#fff8ee}.canvas-panel .status{min-height:50px}.key-help{display:none}.note code{display:block;margin-top:8px}.grid svg{display:block}
+</style>
+</head>
+<body>
+<div class="shell">
+<header><div class="brand"><span class="mark" aria-hidden="true">2.6</span><span>CS Principles <span class="small">/ 2.7.1</span></span></div><div class="bar"><button class="btn" id="outline">Slides</button><button class="btn" id="fullscreen" hidden>Full screen</button></div></header>
+<main id="slide" aria-labelledby="title"></main>
+<footer><div class="progress"><span id="counter"></span><progress id="progress" aria-label="Slideshow progress"></progress></div><span class="small key-help" aria-hidden="true">← / →</span><div class="bar"><button id="previous" class="btn">← Back</button><button id="next" class="btn primary">Next →</button></div></footer>
+</div>
+<dialog id="menu" aria-labelledby="menu-title"><div class="bar" style="justify-content:space-between"><strong id="menu-title">Slides</strong><button class="btn" id="close-menu">Close</button></div><nav class="answers" id="slide-links" aria-label="Slides"></nav></dialog>
+<script>
+'use strict';
+const slides = [
+  {title:'if-elif-else Statements',section:'2.7.1 · CS Principles',type:'cover'},
+  {title:'Review else',demo:'two',intro:'<code>else</code> runs when the test is false.'},
+  {title:'Add elif',demo:'three',intro:'Check the next condition only if the first fails.'},
+  {title:'Replace elif with if',section:'Checkpoint 1',demo:'three',options:['elif','if'],question:'With two if statements, what draws on the left?',answers:['A cyan circle and a black ring.','A cyan circle only.','A black ring only.','A gold circle and a black ring.'],correct:0,why:'Both tests are true on the left. Two separate if statements can both run.'},
+  {title:'Choose for the weather',type:'weather'},
+  {title:'Use more than one elif',demo:'four',intro:'Click each band. The first true test wins.'},
+  {title:'Leave out else',demo:'quadrants',question:'Why is there no ring in the top-left?',answers:['The first branch already ran.','The top-left fails both tests.','elif needs an else.'],correct:0,why:'The left-side test wins first. The top-side test is skipped. Neither test passes in the bottom-right.'}
+];
+
+const main = document.querySelector('#slide');
+const menu = document.querySelector('#menu');
+const previous = document.querySelector('#previous');
+const next = document.querySelector('#next');
+const fullscreen = document.querySelector('#fullscreen');
+const states = slides.map(() => ({option:0, answer:null, marks:[], active:[], status:'', weather:null}));
+const colors = {cyan:'cyan',ring:'black',gold:'gold',plum:'plum',teal:'teal'};
+const cyan = {test:'x < 100', passes:(x,y)=>x<100, shape:'cyan'};
+const mid = {test:'x < 300', passes:(x,y)=>x<300, shape:'ring'};
+const gold = {shape:'gold'};
+const branchesByDemo = {
+  two:[{...cyan,test:'x < 200',passes:(x,y)=>x<200},gold],
+  three:[cyan,mid,gold],
+  four:[cyan,{test:'x < 200',passes:(x,y)=>x<200,shape:'plum'},{...mid,shape:'teal'},gold],
+  quadrants:[{...cyan,test:'x < 200',passes:(x,y)=>x<200},{test:'y < 200',passes:(x,y)=>y<200,shape:'ring'}]
+};
+let current = 0;
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>]/g, character => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[character]));
+}
+function heading(slide) {
+  return (slide.section ? '<p class="eyebrow">'+slide.section+'</p>' : '')+
+    '<h2 id="title" tabindex="-1">'+escapeHTML(slide.title)+'</h2>';
+}
+function codeHTML(lines) {
+  return lines.map(line => '<span class="line">'+escapeHTML(line)+'</span>').join('');
+}
+function exampleCode(slide,state) {
+  return ['def onMousePress(x, y):', ...branchesByDemo[slide.demo].flatMap((branch,index) => {
+    const keyword = index===0 || (index===1 && state.option===1) ? 'if' : 'elif';
+    const header = branch.test ? '    '+keyword+' '+branch.test+':' : '    else:';
+    const appearance = branch.shape==='ring' ? "fill=None, border='black'" : "fill='"+branch.shape+"'";
+    return [header, '        Circle(x, y, 26, '+appearance+')'];
+  })];
+}
+function renderDemo(slide) {
+  const samples = slide.demo==='quadrants' ? [['Top left',100,100],['Top right',300,100],['Bottom left',100,300],['Bottom right',300,300]] :
+    ({two:[['Left',100],['Right',300]],three:[['Left',50],['Middle',200],['Right',350]],four:[['Band 1',50],['Band 2',150],['Band 3',250],['Band 4',350]]}[slide.demo]).map(([label,x])=>[label,x,200]);
+  return '<div class="grid demo-grid"><div class="panel"><div class="code-panel"><div class="panel-head">Python</div><pre tabindex="0" aria-label="Python example"><code id="code"></code></pre></div>'+
+    (slide.options ? '<div class="config"><div class="choices" aria-label="Second test">'+slide.options.map((option,index)=>'<button class="option" data-option="'+index+'" aria-pressed="false"><code>'+escapeHTML(option)+'</code></button>').join('')+'</div></div>' : '')+
+    (slide.question ? '<section class="question" aria-labelledby="question"><strong id="question">'+escapeHTML(slide.question)+'</strong><div class="answers">'+slide.answers.map((answer,index)=>'<button class="answer" data-answer="'+index+'" aria-pressed="false">'+escapeHTML(answer)+'</button>').join('')+'</div><p id="feedback" class="feedback" role="status"></p></section>' : '')+'</div>'+
+    '<section class="panel canvas-panel" aria-label="Interactive example"><div class="panel-head"><span>Canvas</span><button class="btn small" id="reset">Reset</button></div><div class="canvas-wrap"><canvas id="canvas" class="canvas" width="400" height="400" aria-label="Click the canvas or use the buttons below."></canvas><div class="keys">'+
+    samples.map(([label,x,y])=>'<button class="btn" data-point="'+x+','+y+'">'+label+'</button>').join('')+
+    '</div></div><div class="status" id="status" role="status"></div></section></div>';
+}
+function render() {
+  const slide = slides[current];
+  if (slide.type === 'cover') {
+    main.innerHTML = '<section class="hero"><div><p class="eyebrow">'+slide.section+'</p><h1 id="title" tabindex="-1">if-elif-else Statements</h1><p class="intro">Follow the first true condition.</p><button class="btn primary" id="start">Start lesson →</button></div><div class="hero-code"><span>if …</span><span>elif …</span><span>else …</span></div></section>';
+    document.querySelector('#start').onclick = () => navigate(1);
+  } else if (slide.type === 'weather') {
+    main.innerHTML = heading(slide)+'<div class="grid"><div class="panel code-panel"><div class="panel-head">Python</div><pre><code id="weather-code">'+codeHTML(['if snowing:',"    pack('coat')",'elif raining:',"    pack('umbrella')",'else:',"    pack('sunglasses')"])+'</code></pre></div><section class="note" aria-label="Weather demo"><div class="choices"><button class="option" data-weather="0">Snow</button><button class="option" data-weather="1">Rain</button><button class="option" data-weather="2">Clear</button></div><p class="feedback" id="weather-result" role="status"></p></section></div>';
+    const state = states[current];
+    const buttons = [...main.querySelectorAll('[data-weather]')];
+    function updateWeather() {
+      buttons.forEach((button,index)=>button.setAttribute('aria-pressed',index===state.weather));
+      [...document.querySelector('#weather-code').children].forEach((line,index)=>line.classList.toggle('active',state.weather!==null && Math.floor(index/2)===state.weather));
+      document.querySelector('#weather-result').textContent = state.weather===null ? 'Choose the weather.' : ['Coat','Umbrella','Sunglasses'][state.weather];
+    }
+    buttons.forEach((button,index)=>button.onclick = () => {
+      state.weather = index;
+      updateWeather();
+    });
+    updateWeather();
+  } else {
+    main.innerHTML = heading(slide)+(slide.intro?'<p class="intro">'+slide.intro+'</p>':'')+renderDemo(slide);
+    bindDemo(slide);
+  }
+  document.querySelector('#counter').textContent = (current+1)+' / '+slides.length;
+  const progress = document.querySelector('#progress');
+  progress.max = slides.length;
+  progress.value = current+1;
+  previous.disabled = current === 0;
+  next.disabled = current === slides.length-1;
+  document.querySelectorAll('#slide-links button').forEach((button,index) => {
+    if (index === current) button.setAttribute('aria-current','page');
+    else button.removeAttribute('aria-current');
+  });
+}
+function navigate(index) {
+  if (index < 0 || index >= slides.length || index === current) return;
+  current = index;
+  render();
+  document.querySelector('#title').focus({preventScroll:true});
+  window.scrollTo(0,0);
+}
+
+function bindDemo(slide) {
+  const state = states[current];
+  const canvas = document.querySelector('#canvas');
+  const context = canvas.getContext('2d');
+  const code = document.querySelector('#code');
+  const status = document.querySelector('#status');
+  const feedback = document.querySelector('#feedback');
+  const options = [...main.querySelectorAll('[data-option]')];
+  const answers = [...main.querySelectorAll('[data-answer]')];
+
+  function updateCode() {
+    code.innerHTML = codeHTML(exampleCode(slide,state));
+    options.forEach((button,index)=>button.setAttribute('aria-pressed',index===state.option));
+  }
+  function updateAnswer() {
+    if (!feedback) return;
+    answers.forEach((button,index)=>button.setAttribute('aria-pressed',index===state.answer));
+    feedback.textContent = state.answer===null ? '' : state.answer===slide.correct ? 'Correct. '+slide.why : 'Try again.';
+  }
+  function paint() {
+    context.clearRect(0,0,400,400);
+    const guides = {two:[200],three:[100,300],four:[100,200,300],quadrants:[200]};
+    context.beginPath();
+    context.lineWidth = 1;
+    context.strokeStyle = '#baa794';
+    context.setLineDash([5,4]);
+    for (const x of guides[slide.demo]) {
+      context.moveTo(x,0);
+      context.lineTo(x,400);
+    }
+    if (slide.demo==='quadrants') {
+      context.moveTo(0,200);
+      context.lineTo(400,200);
+    }
+    context.stroke();
+    context.setLineDash([]);
+    for (const {x,y,shape} of state.marks) {
+      context.beginPath();
+      context.arc(x,y,26,0,Math.PI*2);
+      if (shape==='ring') {
+        context.lineWidth = 2;
+        context.strokeStyle = 'black';
+        context.stroke();
+      } else {
+        context.fillStyle = colors[shape];
+        context.fill();
+      }
+    }
+    status.textContent = state.status || 'Click the canvas.';
+    [...code.children].forEach((line,index)=>line.classList.toggle('active',state.active.includes(index)));
+  }
+  function act(x,y) {
+    const tests = [];
+    const drawn = [];
+    let matched = false;
+    state.active = [];
+    branchesByDemo[slide.demo].forEach((branch,index) => {
+      if (index===1 && state.option===1) matched = false;
+      if (matched) return;
+      const line = index*2+1;
+      state.active.push(line);
+      if (branch.test) {
+        const passed = branch.passes(x,y);
+        tests.push(branch.test+' '+(passed?'✓':'✗'));
+        if (!passed) return;
+      } else tests.push('else');
+      matched = true;
+      state.active.push(line+1);
+      state.marks.push({x,y,shape:branch.shape});
+      drawn.push(branch.shape==='ring'?'black ring':branch.shape+' circle');
+    });
+    state.status = tests.join(' · ')+' → '+(drawn.join(' + ')||'no shape');
+    paint();
+  }
+  function reset() {
+    Object.assign(state,{marks:[],active:[],status:''});
+    paint();
+  }
+  canvas.addEventListener('click', event => {
+    const bounds = canvas.getBoundingClientRect();
+    const x = Math.floor(400*(event.clientX-bounds.left)/bounds.width);
+    const y = Math.floor(400*(event.clientY-bounds.top)/bounds.height);
+    act(x,y);
+  });
+  main.querySelectorAll('[data-point]').forEach(button=>button.onclick = () => act(...button.dataset.point.split(',').map(Number)));
+  options.forEach((button,index)=>button.onclick = () => {
+    if (index===state.option) return;
+    state.option = index;
+    updateCode();
+    reset();
+  });
+  answers.forEach((button,index)=>button.onclick = () => {
+    state.answer = index;
+    updateAnswer();
+  });
+  document.querySelector('#reset').onclick = reset;
+  updateCode();
+  updateAnswer();
+  paint();
+}
+document.querySelector('#slide-links').innerHTML = slides.map((slide,index) => '<button class="answer" data-slide="'+index+'">'+(index+1)+'. '+escapeHTML(slide.title)+'</button>').join('');
+document.querySelectorAll('[data-slide]').forEach(button => button.onclick = () => {
+  menu.close();
+  navigate(Number(button.dataset.slide));
+});
+document.querySelector('#outline').onclick = () => menu.showModal();
+document.querySelector('#close-menu').onclick = () => menu.close();
+previous.onclick = () => navigate(current-1);
+next.onclick = () => navigate(current+1);
+document.addEventListener('keydown',event => {
+  if (menu.open || event.altKey || event.ctrlKey || event.metaKey) return;
+  if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+    event.preventDefault();
+    navigate(current+(event.key === 'ArrowRight'?1:-1));
+  }
+});
+if (document.fullscreenEnabled) {
+  fullscreen.hidden = false;
+  fullscreen.onclick = async () => {
+    try {
+      if (document.fullscreenElement) await document.exitFullscreen();
+      else await document.documentElement.requestFullscreen();
+    } catch {
+      fullscreen.hidden = true;
+    }
+  };
+  document.addEventListener('fullscreenchange',() => {
+    fullscreen.textContent = document.fullscreenElement ? 'Exit full screen' : 'Full screen';
+  });
+}
+render();
+</script>
+</body>
+</html>
