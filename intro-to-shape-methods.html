@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.6.2 Intro to Shape Methods · CS Principles</title>
+<style>
+:root{color-scheme:light;--paper:#f3effa;--white:#fcfdff;--ink:#172441;--muted:#455677;--line:#d6c9e4;--green:#512d77;--lime:#f7d575;--code:#271a3b;--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.5 "Inter",system-ui,sans-serif}button{font:inherit;cursor:pointer;color:inherit}button:focus-visible,[tabindex]:focus-visible{outline:3px solid #546bca;outline-offset:4px}button:disabled{opacity:.45;cursor:default}
+.shell{width:min(1330px,100%);margin:auto;padding:0 clamp(18px,4vw,58px)}header,footer{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0}header{border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:12px;font-weight:750}.mark{display:grid;place-items:center;background:var(--green);color:var(--lime);border-radius:9px;width:40px;height:40px;font:700 17px var(--mono)}.bar{display:flex;gap:8px;align-items:center}.btn,.answer,.option{border:1px solid var(--line);background:var(--white);border-radius:8px;padding:9px 14px;font-weight:650}.btn:hover:not(:disabled),.answer:hover,.option:hover{background:#e2eaff}.primary{background:var(--green);border-color:var(--green);color:white}.primary:hover:not(:disabled){background:#69438e}
+main{padding:clamp(20px,4vh,44px) 0 24px;min-height:68vh}h1,h2,p{margin:0}h1,h2{line-height:1.04;letter-spacing:-.045em}h1{font-size:clamp(42px,7vw,100px)}h2{font-size:clamp(36px,5vw,67px)}code{font-family:var(--mono)}.eyebrow{color:var(--green);font:700 13px var(--mono);text-transform:uppercase;letter-spacing:.12em;margin-bottom:11px}.intro{margin:13px 0 21px;font-size:clamp(17px,1.7vw,22px);color:var(--muted);max-width:76ch}.hero{display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:30px;background:var(--white);border:1px solid var(--line);border-radius:22px;padding:clamp(25px,5vw,70px);min-height:57vh}.hero h1{font-size:clamp(38px,5.4vw,77px)}.hero .intro{margin:24px 0}.hero-code{background:var(--code);color:white;border-radius:16px;padding:clamp(18px,3vw,36px);display:grid;gap:12px;font:clamp(15px,2.4vw,29px)/1.45 var(--mono)}.hero-code span:first-child{color:var(--lime)}
+.grid{display:grid;grid-template-columns:minmax(0,1.24fr) minmax(260px,.76fr);gap:20px;align-items:start}.panel{border:1px solid var(--line);background:var(--white);border-radius:14px;overflow:hidden}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 15px;border-bottom:1px solid var(--line);font-weight:750}.code-panel{background:var(--code);color:#f3f9ef;border-color:var(--code)}.code-panel .panel-head{border-color:#4e6080;color:var(--lime)}pre{margin:0;padding:15px 0;overflow:auto;max-height:310px;font:clamp(12px,1.6vw,18px)/1.65 var(--mono);tab-size:4}.line{display:block;padding:0 16px;min-height:1.65em}.line.active{background:#51376b;color:#fff0d9}.line.skipped{color:#b3c2dd}
+.config,.explain,.question{padding:15px}.config,.question{border-top:1px solid var(--line)}.config-label,.question strong{display:block;margin-bottom:8px}.choices{display:flex;flex-wrap:wrap;gap:8px}.option{font-size:14px}.option[aria-pressed=true]{background:var(--lime);border-color:#a55d56}.answers{display:grid;gap:6px}.answer{text-align:left;font-size:15px;padding:6px 11px}.answer[aria-pressed=true]{border-color:var(--green);background:#fce3dc}.feedback{font-weight:650;margin-top:8px}.feedback:empty{margin:0}.canvas-panel .panel-head{flex-wrap:wrap}.canvas-wrap{padding:9px 13px 0}.canvas{position:relative;width:min(100%,355px);aspect-ratio:1;margin:auto;background:#f8f3fe;border:1px solid #beacce;border-radius:8px;overflow:hidden;cursor:crosshair}.shape{position:absolute;pointer-events:none;transform:translate(-50%,-50%)}.shape{border-radius:50%}.status{padding:9px 13px 13px;min-height:62px;font-size:14px;font-family:var(--mono);color:var(--muted)}.keys{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;padding-top:8px}.keys .btn{font-size:13px;padding:4px 8px}.small{font-size:14px;color:var(--muted)}.note{padding:20px;border-radius:14px;border:1px solid var(--line);background:var(--white)}.note h3{margin:0 0 8px}.note p+p{margin-top:10px}
+footer{border-top:1px solid var(--line)}.progress{display:flex;align-items:center;gap:12px;color:var(--muted);font:700 13px var(--mono)}progress{width:clamp(45px,13vw,180px);height:9px;accent-color:var(--green)}dialog{width:min(460px,calc(100% - 30px));border:1px solid var(--line);border-radius:16px;background:var(--white);color:var(--ink);padding:20px}dialog::backdrop{background:#271a3b80}dialog .answers{margin-top:10px}[hidden]{display:none!important}
+@media(max-width:760px){.grid,.hero{grid-template-columns:1fr}.hero{min-height:0}.hero-code{gap:4px}.demo-grid .canvas-panel{grid-row:2}.brand .small, .key-help{display:none}header,footer{gap:6px}.btn{padding:7px 10px}}
+
+.line.error{background:#75354b;color:white}.line-number{display:inline-block;width:2.6em;color:#b3c2dd;user-select:none}.property-label{font:700 14px var(--mono);color:var(--muted)}.swatch{display:inline-block;width:12px;height:12px;border-radius:50%;border:1px solid #8b96ac;margin-right:6px}
+.start{margin-top:24px}h2+.grid{margin-top:18px}.config summary{cursor:pointer;font-weight:650}.naming{margin-top:8px}
+.canvas{display:block;touch-action:none;background:#f8f3fe}.canvas-panel .status{min-height:50px}.key-help{display:none}.note code{display:block;margin-top:8px}.grid svg{display:block}
+</style>
+</head>
+<body>
+<div class="shell">
+<header><div class="brand"><span class="mark" aria-hidden="true">2.6</span><span>CS Principles <span class="small">/ 2.6.2</span></span></div><div class="bar"><button class="btn" id="outline">Slides</button><button class="btn" id="fullscreen" hidden>Full screen</button></div></header>
+<main id="slide" aria-labelledby="title"></main>
+<footer><div class="progress"><span id="counter"></span><progress id="progress" aria-label="Slideshow progress"></progress></div><span class="small key-help" aria-hidden="true">← / →</span><div class="bar"><button id="previous" class="btn">← Back</button><button id="next" class="btn primary">Next →</button></div></footer>
+</div>
+<dialog id="menu" aria-labelledby="menu-title"><div class="bar" style="justify-content:space-between"><strong id="menu-title">Slides</strong><button class="btn" id="close-menu">Close</button></div><nav class="answers" id="slide-links" aria-label="Slides"></nav></dialog>
+<script>
+'use strict';
+const slides = [
+  {title:'Intro to Shape Methods',section:'2.6.2 · CS Principles',type:'cover'},
+  {title:'Move a layer',demo:'layers',intro:'Click left for front. Click right for back.'},
+  {title:'Drop the parentheses',section:'Checkpoint 1',demo:'layers',options:['toBack()', 'toBack'],question:'With star.toBack, what happens when you click right?',answers:['The code runs. The star stays put.','The star moves to the back as usual.','The code crashes on the click.','Python reports a syntax error.'],correct:0,why:'Without (), Python finds the method without calling it.'},
+  {title:'hits(x, y)',demo:'point',intro:'Move the pointer. Does the point touch the star?'},
+  {title:'hitsShape(otherShape)',demo:'overlap',intro:'Move the dot. Do the shapes touch?'},
+  {title:'Swap the shapes',section:'Checkpoint 2',demo:'overlap',options:['dot.hitsShape(star)','star.hitsShape(dot)'],question:'What changes when you swap the shapes?',answers:['The star moves instead.','The code crashes on the call.','Python reports a syntax error.','Nothing changes.'],correct:3,why:'Touching works both ways. The code still moves the dot.'},
+  {title:'Object-oriented programming',type:'objects'}
+];
+
+const main = document.querySelector('#slide');
+const menu = document.querySelector('#menu');
+const previous = document.querySelector('#previous');
+const next = document.querySelector('#next');
+const fullscreen = document.querySelector('#fullscreen');
+const states = slides.map(() => ({option:0, answer:null, front:true, point:null, action:null}));
+const dotRadius = 20;
+const starPoints = Array.from({length:10}, (_,index) => {
+  const angle = index * Math.PI / 5 - Math.PI / 2;
+  const radius = index % 2 === 0 ? 130 : 57;
+  return {x:200+radius*Math.cos(angle),y:200+radius*Math.sin(angle)};
+});
+let current = 0;
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>]/g, character => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[character]));
+}
+function heading(slide) {
+  return (slide.section ? '<p class="eyebrow">'+slide.section+'</p>' : '')+
+    '<h2 id="title" tabindex="-1">'+escapeHTML(slide.title)+'</h2>';
+}
+function codeHTML(lines) {
+  return lines.map(line => '<span class="line">'+escapeHTML(line)+'</span>').join('');
+}
+function exampleCode(slide,state) {
+  if (slide.demo === 'layers') return [
+    "block = Rect(120, 135, 160, 130, fill='slateBlue')",
+    "star = Star(200, 200, 130, 5, fill='gold')",'',
+    'def onMousePress(x, y):','    if (x < 200):','        star.toFront()',
+    '    else:', '        star.'+(state.option ? 'toBack' : 'toBack()')
+  ];
+  const overlap = slide.demo === 'overlap';
+  const method = overlap ? (state.option?'star.hitsShape(dot)':'dot.hitsShape(star)') : 'star.hits(x, y)';
+  return [
+    "star = Star(200, 200, 130, 5, fill='gold')",
+    ...(overlap ? ["dot = Circle(42, 42, 20, fill='crimson')"] : []),
+    '', 'def onMouseMove(x, y):',
+    ...(overlap ? ['    dot.centerX = x','    dot.centerY = y'] : []),
+    '    if ('+method+' == True):',
+    "        star.fill = 'mediumSeaGreen'",
+    '    else:',"        star.fill = 'gold'"
+  ];
+}
+function renderDemo(slide) {
+  const layered = slide.demo === 'layers';
+  const samples = layered ? [['Front',80,200],['Back',320,200]] :
+    [['Inside',200,200],['Outside',42,42],...(slide.demo==='overlap'?[['Edge',200,55]]:[])];
+  return '<div class="grid demo-grid"><div class="panel"><div class="code-panel"><div class="panel-head">Python</div><pre tabindex="0" aria-label="Python example"><code id="code"></code></pre></div>'+
+    (slide.options ? '<div class="config"><div class="choices" aria-label="Code choices">'+slide.options.map((option,index)=>'<button class="option" data-option="'+index+'" aria-pressed="false"><code>'+escapeHTML(option)+'</code></button>').join('')+'</div></div>' : '')+
+    (slide.question ? '<section class="question" aria-labelledby="question"><strong id="question">'+escapeHTML(slide.question)+'</strong><div class="answers">'+slide.answers.map((answer,index)=>'<button class="answer" data-answer="'+index+'" aria-pressed="false">'+escapeHTML(answer)+'</button>').join('')+'</div><p id="feedback" class="feedback" role="status"></p></section>' : '')+'</div>'+
+    '<section class="panel canvas-panel" aria-label="Interactive example"><div class="panel-head"><span>Canvas</span><button class="btn small" id="reset">Reset</button></div><div class="canvas-wrap"><canvas id="canvas" class="canvas" width="400" height="400" aria-label="Interactive star demo. Use the buttons below for keyboard input."></canvas><div class="keys">'+
+    samples.map(([label,x,y])=>'<button class="btn" data-point="'+x+','+y+'">'+label+'</button>').join('')+
+    '</div></div><div class="status" id="status" role="status"></div></section></div>';
+}
+function render() {
+  const slide = slides[current];
+  if (slide.type === 'cover') {
+    main.innerHTML = '<section class="hero"><div><p class="eyebrow">'+slide.section+'</p><h1 id="title" tabindex="-1">Intro to Shape Methods</h1><p class="intro">Call a method on a shape.</p><button class="btn primary" id="start">Start lesson →</button></div><div class="hero-code"><span>shape.method(args)</span><span>star.toFront()</span></div></section>';
+    document.querySelector('#start').onclick = () => navigate(1);
+  } else if (slide.type === 'objects') {
+    main.innerHTML = heading(slide)+'<p class="intro">Objects can have properties and methods. Shapes and <code>app</code> are objects.</p><div class="grid"><section class="note"><h3>Properties store values</h3><code>star.fill</code><code>app.background</code></section><section class="note"><h3>Methods run code</h3><code>star.toFront()</code><code>app.stop()</code></section></div>';
+  } else {
+    main.innerHTML = heading(slide)+(slide.intro?'<p class="intro">'+slide.intro+'</p>':'')+renderDemo(slide);
+    bindDemo(slide);
+  }
+  document.querySelector('#counter').textContent = (current+1)+' / '+slides.length;
+  const progress = document.querySelector('#progress');
+  progress.max = slides.length;
+  progress.value = current+1;
+  previous.disabled = current === 0;
+  next.disabled = current === slides.length-1;
+  document.querySelectorAll('#slide-links button').forEach((button,index) => {
+    if (index === current) button.setAttribute('aria-current','page');
+    else button.removeAttribute('aria-current');
+  });
+}
+function navigate(index) {
+  if (index < 0 || index >= slides.length || index === current) return;
+  current = index;
+  render();
+  document.querySelector('#title').focus({preventScroll:true});
+  window.scrollTo(0,0);
+}
+
+function edgeDistanceSquared(point,a,b) {
+  const dx = b.x-a.x;
+  const dy = b.y-a.y;
+  const projection = ((point.x-a.x)*dx+(point.y-a.y)*dy)/(dx*dx+dy*dy);
+  const t = Math.max(0,Math.min(1,projection));
+  return (point.x-a.x-t*dx)**2+(point.y-a.y-t*dy)**2;
+}
+function touchesStar(point,radius = 0) {
+  let inside = false;
+  for (let index=0; index<starPoints.length; index++) {
+    const a = starPoints[index];
+    const b = starPoints[(index+1)%starPoints.length];
+    if (edgeDistanceSquared(point,a,b)<=radius**2) return true;
+    if ((a.y>point.y)!==(b.y>point.y) &&
+        point.x<(b.x-a.x)*(point.y-a.y)/(b.y-a.y)+a.x) inside = !inside;
+  }
+  return inside;
+}
+function drawCircle(context,point,radius,color) {
+  context.beginPath();
+  context.arc(point.x,point.y,radius,0,Math.PI*2);
+  context.fillStyle = color;
+  context.fill();
+}
+function drawStar(context,color) {
+  context.beginPath();
+  context.moveTo(starPoints[0].x,starPoints[0].y);
+  starPoints.slice(1).forEach(point => context.lineTo(point.x,point.y));
+  context.closePath();
+  context.fillStyle = color;
+  context.fill();
+}
+function bindDemo(slide) {
+  const state = states[current];
+  const layered = slide.demo === 'layers';
+  const overlap = slide.demo === 'overlap';
+  const canvas = document.querySelector('#canvas');
+  const context = canvas.getContext('2d');
+  const code = document.querySelector('#code');
+  const status = document.querySelector('#status');
+  const feedback = document.querySelector('#feedback');
+  const options = [...main.querySelectorAll('[data-option]')];
+  const answers = [...main.querySelectorAll('[data-answer]')];
+
+  function updateCode() {
+    code.innerHTML = codeHTML(exampleCode(slide,state));
+    options.forEach((button,index)=>button.setAttribute('aria-pressed',index===state.option));
+  }
+  function updateAnswer() {
+    if (!feedback) return;
+    answers.forEach((button,index)=>button.setAttribute('aria-pressed',index===state.answer));
+    feedback.textContent = state.answer === null ? '' :
+      (state.answer===slide.correct ? 'Correct. '+slide.why : 'Try again.');
+  }
+  function paint() {
+    context.clearRect(0,0,400,400);
+    const result = state.point ? touchesStar(state.point,overlap ? dotRadius : 0) : null;
+    let message;
+    let active = [];
+    if (layered) {
+      if (!state.front) drawStar(context,'gold');
+      context.fillStyle = 'slateBlue';
+      context.fillRect(120,135,160,130);
+      if (state.front) drawStar(context,'gold');
+      message = state.action === 'reference' ? 'Method referenced. Layer unchanged.' :
+        (state.front ? 'Star in front.' : 'Star in back.');
+      if (state.action) active = state.action === 'front' ? [4,5] : [4,6,7];
+    } else {
+      drawStar(context,result?'mediumSeaGreen':'gold');
+      if (overlap) drawCircle(context,state.point ?? {x:42,y:42},dotRadius,'crimson');
+      else if (state.point) drawCircle(context,state.point,5,'#271a3b');
+      message = result === null ? 'Move or tap.' : (result ? 'True' : 'False');
+      if (state.point) active = overlap ? [4,5,6,result?7:9] : [3,result?4:6];
+    }
+    if (status.textContent !== message) status.textContent = message;
+    [...code.children].forEach((line,index)=>line.classList.toggle('active',active.includes(index)));
+  }
+  function act(x,y) {
+    if (layered) {
+      if (x < 200) {
+        state.front = true;
+        state.action = 'front';
+      } else if (state.option === 0) {
+        state.front = false;
+        state.action = 'back';
+      } else state.action = 'reference';
+    } else state.point = {x,y};
+    paint();
+  }
+  function fromPointer(event) {
+    const bounds = canvas.getBoundingClientRect();
+    act(400*(event.clientX-bounds.left)/bounds.width,400*(event.clientY-bounds.top)/bounds.height);
+  }
+  if (layered) canvas.addEventListener('click',fromPointer);
+  else {
+    canvas.addEventListener('pointerdown',fromPointer);
+    canvas.addEventListener('pointermove',fromPointer);
+  }
+  main.querySelectorAll('[data-point]').forEach(button => button.onclick = () => act(...button.dataset.point.split(',').map(Number)));
+  options.forEach((button,index) => button.onclick = () => {
+    state.option = index;
+    state.action = null;
+    updateCode();
+    paint();
+  });
+  answers.forEach((button,index) => button.onclick = () => {
+    state.answer = index;
+    updateAnswer();
+  });
+  document.querySelector('#reset').onclick = () => {
+    Object.assign(state,{front:true,point:null,action:null});
+    paint();
+  };
+  updateCode();
+  updateAnswer();
+  paint();
+}
+document.querySelector('#slide-links').innerHTML = slides.map((slide,index) => '<button class="answer" data-slide="'+index+'">'+(index+1)+'. '+escapeHTML(slide.title)+'</button>').join('');
+document.querySelectorAll('[data-slide]').forEach(button => button.onclick = () => {
+  menu.close();
+  navigate(Number(button.dataset.slide));
+});
+document.querySelector('#outline').onclick = () => menu.showModal();
+document.querySelector('#close-menu').onclick = () => menu.close();
+previous.onclick = () => navigate(current-1);
+next.onclick = () => navigate(current+1);
+document.addEventListener('keydown',event => {
+  if (menu.open || event.altKey || event.ctrlKey || event.metaKey) return;
+  if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+    event.preventDefault();
+    navigate(current+(event.key === 'ArrowRight'?1:-1));
+  }
+});
+if (document.fullscreenEnabled) {
+  fullscreen.hidden = false;
+  fullscreen.onclick = async () => {
+    try {
+      if (document.fullscreenElement) await document.exitFullscreen();
+      else await document.documentElement.requestFullscreen();
+    } catch {
+      fullscreen.hidden = true;
+    }
+  };
+  document.addEventListener('fullscreenchange',() => {
+    fullscreen.textContent = document.fullscreenElement ? 'Exit full screen' : 'Full screen';
+  });
+}
+render();
+</script>
+</body>
+</html>
