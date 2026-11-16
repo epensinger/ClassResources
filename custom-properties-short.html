@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.6.1 Custom Properties · CS Principles</title>
+<style>
+:root{color-scheme:light;--paper:#edf2fa;--white:#fcfdff;--ink:#172441;--muted:#455677;--line:#c5d1e6;--green:#283f78;--lime:#ffbbab;--code:#162642;--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.5 "Inter",system-ui,sans-serif}button{font:inherit;cursor:pointer;color:inherit}button:focus-visible,[tabindex]:focus-visible{outline:3px solid #546bca;outline-offset:4px}button:disabled{opacity:.45;cursor:default}
+.shell{width:min(1330px,100%);margin:auto;padding:0 clamp(18px,4vw,58px)}header,footer{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0}header{border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:12px;font-weight:750}.mark{display:grid;place-items:center;background:var(--green);color:var(--lime);border-radius:9px;width:40px;height:40px;font:700 17px var(--mono)}.bar{display:flex;gap:8px;align-items:center}.btn,.answer,.option{border:1px solid var(--line);background:var(--white);border-radius:8px;padding:9px 14px;font-weight:650}.btn:hover:not(:disabled),.answer:hover,.option:hover{background:#e2eaff}.primary{background:var(--green);border-color:var(--green);color:white}.primary:hover:not(:disabled){background:#3a5599}
+main{padding:clamp(20px,4vh,44px) 0 24px;min-height:68vh}h1,h2,p{margin:0}h1,h2{line-height:1.04;letter-spacing:-.045em}h1{font-size:clamp(42px,7vw,100px)}h2{font-size:clamp(36px,5vw,67px)}code{font-family:var(--mono)}.eyebrow{color:var(--green);font:700 13px var(--mono);text-transform:uppercase;letter-spacing:.12em;margin-bottom:11px}.intro{margin:13px 0 21px;font-size:clamp(17px,1.7vw,22px);color:var(--muted);max-width:76ch}.hero{display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:30px;background:var(--white);border:1px solid var(--line);border-radius:22px;padding:clamp(25px,5vw,70px);min-height:57vh}.hero h1{font-size:clamp(38px,5.4vw,77px)}.hero .intro{margin:24px 0}.hero-code{background:var(--code);color:white;border-radius:16px;padding:clamp(18px,3vw,36px);display:grid;gap:12px;font:clamp(15px,2.4vw,29px)/1.45 var(--mono)}.hero-code span:first-child{color:var(--lime)}
+.grid{display:grid;grid-template-columns:minmax(0,1.24fr) minmax(260px,.76fr);gap:20px;align-items:start}.panel{border:1px solid var(--line);background:var(--white);border-radius:14px;overflow:hidden}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 15px;border-bottom:1px solid var(--line);font-weight:750}.code-panel{background:var(--code);color:#f3f9ef;border-color:var(--code)}.code-panel .panel-head{border-color:#4e6080;color:var(--lime)}pre{margin:0;padding:15px 0;overflow:auto;max-height:310px;font:clamp(12px,1.6vw,18px)/1.65 var(--mono);tab-size:4}.line{display:block;padding:0 16px;min-height:1.65em}.line.active{background:#354e79;color:#fff0d9}.line.skipped{color:#b3c2dd}
+.config,.explain,.question{padding:15px}.config,.question{border-top:1px solid var(--line)}.config-label,.question strong{display:block;margin-bottom:8px}.choices{display:flex;flex-wrap:wrap;gap:8px}.option{font-size:14px}.option[aria-pressed=true]{background:var(--lime);border-color:#a55d56}.answers{display:grid;gap:6px}.answer{text-align:left;font-size:15px;padding:6px 11px}.answer[aria-pressed=true]{border-color:var(--green);background:#fce3dc}.feedback{font-weight:650;margin-top:8px}.feedback:empty{margin:0}.canvas-panel .panel-head{flex-wrap:wrap}.canvas-wrap{padding:9px 13px 0}.canvas{position:relative;width:min(100%,355px);aspect-ratio:1;margin:auto;background:#f3f6fc;border:1px solid #9eafcb;border-radius:8px;overflow:hidden;cursor:crosshair}.shape{position:absolute;pointer-events:none;transform:translate(-50%,-50%)}.shape{border-radius:50%}.status{padding:9px 13px 13px;min-height:62px;font-size:14px;font-family:var(--mono);color:var(--muted)}.keys{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;padding-top:8px}.keys .btn{font-size:13px;padding:4px 8px}.small{font-size:14px;color:var(--muted)}.note{padding:20px;border-radius:14px;border:1px solid var(--line);background:var(--white)}.note h3{margin:0 0 8px}.note p+p{margin-top:10px}
+footer{border-top:1px solid var(--line)}.progress{display:flex;align-items:center;gap:12px;color:var(--muted);font:700 13px var(--mono)}progress{width:clamp(45px,13vw,180px);height:9px;accent-color:var(--green)}dialog{width:min(460px,calc(100% - 30px));border:1px solid var(--line);border-radius:16px;background:var(--white);color:var(--ink);padding:20px}dialog::backdrop{background:#16264280}dialog .answers{margin-top:10px}[hidden]{display:none!important}
+@media(max-width:760px){.grid,.hero{grid-template-columns:1fr}.hero{min-height:0}.hero-code{gap:4px}.demo-grid .canvas-panel{grid-row:2}.brand .small, .key-help{display:none}header,footer{gap:6px}.btn{padding:7px 10px}}
+
+.line.error{background:#75354b;color:white}.line-number{display:inline-block;width:2.6em;color:#b3c2dd;user-select:none}.property-label{font:700 14px var(--mono);color:var(--muted)}.swatch{display:inline-block;width:12px;height:12px;border-radius:50%;border:1px solid #8b96ac;margin-right:6px}
+.start{margin-top:24px}h2+.grid{margin-top:18px}.config summary{cursor:pointer;font-weight:650}.naming{margin-top:8px}
+</style>
+</head>
+<body>
+<div class="shell">
+<header><div class="brand"><span class="mark" aria-hidden="true">2.6</span><span>CS Principles <span class="small">/ 2.6.1</span></span></div><div class="bar"><button class="btn" id="outline">Slides</button><button class="btn" id="fullscreen" hidden>Full screen</button></div></header>
+<main id="slide" aria-labelledby="title"></main>
+<footer><div class="progress"><span id="counter"></span><progress id="progress" aria-label="Slideshow progress"></progress></div><span class="small key-help" aria-hidden="true">← / →</span><div class="bar"><button id="previous" class="btn">← Back</button><button id="next" class="btn primary">Next →</button></div></footer>
+</div>
+<dialog id="menu" aria-labelledby="menu-title"><div class="bar" style="justify-content:space-between"><strong id="menu-title">Slides</strong><button class="btn" id="close-menu">Close</button></div><nav class="answers" id="slide-links" aria-label="Slides"></nav></dialog>
+<script>
+'use strict';
+const slides = [
+  {title:'Custom Properties',section:'2.6.1 · CS Principles',type:'cover'},
+  {title:'Shape properties',demo:'energy',intro:'Built-in <code>radius</code> controls size. Custom <code>energy</code> stores data.'},
+  {title:'App properties',demo:'color',intro:'<code>app.color</code> stores the next color, even on an empty canvas.'},
+  {title:'Start with None',section:'Checkpoint 1',demo:'color',initial:1,question:'Click twice. What happens on the first click?',answers:['Nothing ever appears.','Nothing appears on the first click.','Two circles appear.','Three white circles appear.'],correct:1,why:'All three circles use None. The next color is gold.'},
+  {title:'Omit line 4',section:'Checkpoint 2',demo:'color',initial:2,question:'Click the canvas. What happens?',answers:['Nothing ever appears.','Only the first click draws nothing.','Black circles appear.','An error occurs.'],correct:3,why:'The first Circle reads app.color before it exists.'}
+];
+const initialOptions = ['Gold','None','Omit'];
+const initialValues = ['gold', null, undefined];
+const main = document.querySelector('#slide');
+const menu = document.querySelector('#menu');
+const previous = document.querySelector('#previous');
+const next = document.querySelector('#next');
+const fullscreen = document.querySelector('#fullscreen');
+const states = slides.map(slide => ({
+  choice:slide.initial ?? 0, selected:null, energy:0,
+  color:initialValues[slide.initial ?? 0], marks:[], status:'', active:[], error:null
+}));
+let current = 0;
+let colorShortcut = null;
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>]/g, character => ({'&':'&amp;', '<':'&lt;', '>':'&gt;'}[character]));
+}
+function heading(slide) {
+  return (slide.section ? '<p class="eyebrow">'+slide.section+'</p>' : '')+'<h2 id="title" tabindex="-1">'+escapeHTML(slide.title)+'</h2>';
+}
+function renderCode(lines, numbered = false) {
+  return lines.map((line,index) => '<span class="line" data-line="'+index+'">'+
+    (numbered ? '<span class="line-number" aria-hidden="true">'+(index+1)+'</span>' : '')+
+    escapeHTML(line)+'</span>').join('');
+}
+function model(slide, state) {
+  if (slide.demo === 'energy') return [
+    "player = Circle(200, 200, 50, fill='red')",
+    'player.energy = 0','','def onMousePress(x, y):',
+    '    player.energy += 1','    if (player.energy >= 6):',
+    "        player.fill = 'green'","    else:","        player.fill = 'red'"
+  ];
+  return [
+    '# Three circles per click.','# C switches colors.','',
+    ["app.color = 'gold'",'app.color = None','# app.color initialization omitted'][state.choice],
+    '', 'def switchColor():', "    if (app.color == 'gold'):", "        app.color = 'crimson'",
+    '    else:', "        app.color = 'gold'",'','def onMousePress(x, y):',
+    '    Circle(x, y, 40, fill=None,',
+    '           border=app.color, borderWidth=10)',
+    '    Circle(x, y, 28, fill=None,',
+    '           border=app.color, borderWidth=5)',
+    '    Circle(x, y, 20, fill=app.color)', '    switchColor()',
+    '', 'def onKeyPress(key):', "    if (key == 'c'):", '        switchColor()'
+  ];
+}
+function renderDemo(slide) {
+  const energy = slide.demo === 'energy';
+  return '<div class="grid demo-grid"><div class="panel"><div class="code-panel"><div class="panel-head">Python</div><pre tabindex="0" aria-label="Python example"><code id="code"></code></pre></div>'+
+    (energy ? '<details class="config"><summary>Why call it <code>energy</code>?</summary><p class="naming"><code>charge</code> works too. Use the same name throughout. Properties can hold numbers, text, or shapes.</p></details>' : '')+
+    (slide.question ? '<div class="config"><strong class="config-label">Line 4</strong><div class="choices">'+initialOptions.map((option,index) => '<button class="option" data-option="'+index+'" aria-pressed="false">'+option+'</button>').join('')+'</div></div><section class="question" aria-labelledby="question"><strong id="question">'+escapeHTML(slide.question)+'</strong><div class="answers">'+slide.answers.map((answer,index) => '<button class="answer" data-answer="'+index+'" aria-pressed="false">'+escapeHTML(answer)+'</button>').join('')+'</div><p id="feedback" class="feedback" role="status"></p></section>' : '')+'</div>'+
+    '<section class="panel canvas-panel" aria-label="Interactive example"><div class="panel-head"><span>Canvas</span><button class="btn small" id="reset">Reset</button></div><div class="canvas-wrap"><div id="canvas" class="canvas" role="button" tabindex="0" aria-label="Click the canvas or press Enter"></div>'+
+    '<div class="keys"><button class="btn" id="demo-click">'+(energy?'Add energy':'Draw at center')+'</button>'+
+    (energy?'':'<button class="btn" id="switch-color">Switch color <kbd>C</kbd></button>')+
+    '</div></div><div class="status"><p id="property" class="property-label"></p><p id="status" role="status"></p></div></section></div>';
+}
+function render() {
+  const slide = slides[current];
+  colorShortcut = null;
+  if (slide.type === 'cover') {
+    main.innerHTML = '<section class="hero"><div><p class="eyebrow">'+slide.section+'</p><h1 id="title" tabindex="-1">Custom Properties</h1><button class="btn primary start" id="start">Start lesson →</button></div><div class="hero-code"><span>player.energy = 0</span><span>app.color = &#39;gold&#39;</span></div></section>';
+    document.querySelector('#start').onclick = () => navigate(1);
+  } else {
+    main.innerHTML = heading(slide)+(slide.intro ? '<p class="intro">'+slide.intro+'</p>' : '')+renderDemo(slide);
+    bindDemo(slide);
+  }
+  document.querySelector('#counter').textContent = (current+1)+' / '+slides.length;
+  const progress = document.querySelector('#progress');
+  progress.max = slides.length;
+  progress.value = current+1;
+  previous.disabled = current === 0;
+  next.disabled = current === slides.length-1;
+  document.querySelectorAll('#slide-links button').forEach((button,index) => {
+    if (index === current) button.setAttribute('aria-current','page');
+    else button.removeAttribute('aria-current');
+  });
+}
+function navigate(index) {
+  if (index < 0 || index >= slides.length || index === current) return;
+  current = index;
+  render();
+  document.querySelector('#title').focus({preventScroll:true});
+  window.scrollTo(0,0);
+}
+function bindDemo(slide) {
+  const state = states[current];
+  const energyDemo = slide.demo === 'energy';
+  const canvas = document.querySelector('#canvas');
+  const code = document.querySelector('#code');
+  const property = document.querySelector('#property');
+  const status = document.querySelector('#status');
+  const options = [...main.querySelectorAll('[data-option]')];
+  const answers = [...main.querySelectorAll('[data-answer]')];
+  const feedback = document.querySelector('#feedback');
+
+  function addShape({x,y,radius,fill,border,borderWidth}) {
+    const shape = document.createElement('span');
+    shape.className = 'shape';
+    shape.style.left = x/4+'%';
+    shape.style.top = y/4+'%';
+    shape.style.width = shape.style.height = radius/2+'%';
+    if (fill) shape.style.background = fill;
+    if (border) {
+      shape.style.boxShadow = 'inset 0 0 0 '+(borderWidth/400*canvas.clientWidth)+'px '+border;
+    }
+    canvas.append(shape);
+  }
+  function refresh() {
+    code.innerHTML = renderCode(model(slide,state), !energyDemo);
+    state.active.forEach(index => code.children[index].classList.add('active'));
+    if (state.error !== null) code.children[state.error].classList.add('error');
+    const codeScroll = code.parentElement;
+    const lastLine = Math.max(state.error ?? -1, ...state.active);
+    if (lastLine < 0) {
+      codeScroll.scrollTop = 0;
+    } else {
+      const line = code.children[lastLine];
+      const top = line.getBoundingClientRect().top - codeScroll.getBoundingClientRect().top;
+      if (top < 0 || top + line.offsetHeight > codeScroll.clientHeight) {
+        codeScroll.scrollTop += top - codeScroll.clientHeight / 2;
+      }
+    }
+    canvas.replaceChildren();
+    if (energyDemo) {
+      const fill = state.energy >= 6 ? 'green' : 'red';
+      addShape({x:200,y:200,radius:50,fill});
+      property.textContent = 'player.energy = '+state.energy+' · player.fill = '+fill;
+    } else {
+      for (const mark of state.marks) {
+        addShape({...mark,radius:40,border:mark.color,borderWidth:10});
+        addShape({...mark,radius:28,border:mark.color,borderWidth:5});
+        addShape({...mark,radius:20,fill:mark.color});
+      }
+      const color = state.color;
+      property.innerHTML = (color ? '<span class="swatch" style="background:'+color+'" aria-hidden="true"></span>' : '')+
+        'app.color = '+(color ? "'"+color+"'" : color === null ? 'None' : '(unset)');
+    }
+    status.textContent = state.status || (energyDemo ? 'Green at 6.' : 'Click to draw.');
+    options.forEach((button,index) => button.setAttribute('aria-pressed',index === state.choice));
+    updateAnswer();
+  }
+  function updateAnswer() {
+    if (!feedback) return;
+    answers.forEach((button,index) => button.setAttribute('aria-pressed',index === state.selected));
+    feedback.textContent = state.selected === null ? '' :
+      (state.selected === slide.correct ? 'Correct. '+slide.why : 'Try again.');
+  }
+  function switchColor() {
+    state.active.push(6);
+    if (state.color === 'gold') {
+      state.color = 'crimson';
+      state.active.push(7);
+    } else {
+      state.color = 'gold';
+      state.active.push(9);
+    }
+  }
+  function hit(x,y) {
+    if (state.error !== null) return;
+    if (energyDemo) {
+      state.energy += 1;
+      const charged = state.energy >= 6;
+      state.active = charged ? [4,5,6] : [4,5,7,8];
+      state.status = charged ? '6 or more → green.' : 'Below 6 → red.';
+    } else if (state.color === undefined) {
+      state.error = 13;
+      state.status = 'AttributeError: app.color was read before it was set.';
+    } else {
+      const color = state.color;
+      if (color) state.marks.push({x,y,color});
+      state.active = [12,13,14,15,16,17];
+      state.status = color ? 'Drew three '+color+' circles.' : 'No visible circles.';
+      switchColor();
+    }
+    refresh();
+  }
+  function handleColorKey() {
+    if (state.error !== null) return;
+    state.active = [20,21];
+    if (state.color === undefined) {
+      state.error = 6;
+      state.status = 'AttributeError: app.color was read before it was set.';
+    } else {
+      switchColor();
+      state.status = 'Next color changed.';
+    }
+    refresh();
+  }
+  function reset() {
+    Object.assign(state,{energy:0,color:initialValues[state.choice],marks:[],status:'',active:[],error:null});
+    refresh();
+  }
+  canvas.addEventListener('click',event => {
+    const bounds = canvas.getBoundingClientRect();
+    const x = Math.max(0,Math.min(399,Math.floor(400*(event.clientX-bounds.left)/bounds.width)));
+    const y = Math.max(0,Math.min(399,Math.floor(400*(event.clientY-bounds.top)/bounds.height)));
+    hit(x,y);
+  });
+  canvas.addEventListener('keydown',event => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      hit(200,200);
+    }
+  });
+  document.querySelector('#demo-click').onclick = () => hit(200,200);
+  if (!energyDemo) {
+    const colorButton = document.querySelector('#switch-color');
+    colorButton.onclick = handleColorKey;
+  }
+  if (!energyDemo) colorShortcut = handleColorKey;
+  options.forEach((button,index) => button.onclick = () => {
+    if (state.choice === index) return;
+    state.choice = index;
+    reset();
+  });
+  answers.forEach((button,index) => button.onclick = () => {
+    state.selected = index;
+    updateAnswer();
+  });
+  document.querySelector('#reset').onclick = reset;
+  refresh();
+}
+document.querySelector('#slide-links').innerHTML = slides.map((slide,index) => '<button class="answer" data-slide="'+index+'">'+(index+1)+'. '+escapeHTML(slide.title)+'</button>').join('');
+document.querySelectorAll('[data-slide]').forEach(button => button.onclick = () => {
+  menu.close();
+  navigate(Number(button.dataset.slide));
+});
+document.querySelector('#outline').onclick = () => menu.showModal();
+document.querySelector('#close-menu').onclick = () => menu.close();
+previous.onclick = () => navigate(current-1);
+next.onclick = () => navigate(current+1);
+document.addEventListener('keydown',event => {
+  if (menu.open || event.altKey || event.ctrlKey || event.metaKey) return;
+  if (event.key === 'c' && !event.repeat) colorShortcut?.();
+  if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+    event.preventDefault();
+    navigate(current+(event.key === 'ArrowRight'?1:-1));
+  }
+});
+if (document.fullscreenEnabled) {
+  fullscreen.hidden = false;
+  fullscreen.onclick = async () => {
+    try {
+      if (document.fullscreenElement) await document.exitFullscreen();
+      else await document.documentElement.requestFullscreen();
+    } catch {
+      fullscreen.hidden = true;
+    }
+  };
+  document.addEventListener('fullscreenchange',() => {
+    fullscreen.textContent = document.fullscreenElement ? 'Exit full screen' : 'Full screen';
+  });
+}
+render();
+</script>
+</body>
+</html>
