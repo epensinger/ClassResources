@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.5.1 if Statements · CS Principles</title>
+<style>
+:root{color-scheme:light;--paper:#f3f0e8;--white:#fffefa;--ink:#172923;--muted:#4b5e55;--line:#cdd4c9;--green:#174c37;--lime:#d3ed9a;--code:#142a23;--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.5 "Inter",system-ui,sans-serif}button{font:inherit;cursor:pointer;color:inherit}button:focus-visible,[tabindex]:focus-visible{outline:3px solid #427b61;outline-offset:4px}button:disabled{opacity:.45;cursor:default}
+.shell{width:min(1330px,100%);margin:auto;padding:0 clamp(18px,4vw,58px)}header,footer{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0}header{border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:12px;font-weight:750}.mark{display:grid;place-items:center;background:var(--green);color:var(--lime);border-radius:9px;width:40px;height:40px;font:700 17px var(--mono)}.bar{display:flex;gap:8px;align-items:center}.btn,.answer,.option{border:1px solid var(--line);background:var(--white);border-radius:8px;padding:9px 14px;font-weight:650}.btn:hover:not(:disabled),.answer:hover,.option:hover{background:#e5eddc}.primary{background:var(--green);border-color:var(--green);color:white}.primary:hover:not(:disabled){background:#246449}
+main{padding:clamp(20px,4vh,44px) 0 24px;min-height:68vh}h1,h2,p{margin:0}h1,h2{line-height:1.04;letter-spacing:-.045em}h1{font-size:clamp(42px,7vw,100px)}h2{font-size:clamp(36px,5vw,67px)}code{font-family:var(--mono)}.eyebrow{color:var(--green);font:700 13px var(--mono);text-transform:uppercase;letter-spacing:.12em;margin-bottom:11px}.intro{margin:13px 0 21px;font-size:clamp(17px,1.7vw,22px);color:var(--muted);max-width:76ch}.hero{display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:30px;background:var(--white);border:1px solid var(--line);border-radius:22px;padding:clamp(25px,5vw,70px);min-height:57vh}.hero .intro{margin:24px 0}.hero-code{background:var(--code);color:white;border-radius:16px;padding:clamp(18px,3vw,36px);display:grid;gap:12px;font:clamp(15px,2.4vw,29px)/1.45 var(--mono)}.hero-code span:first-child{color:var(--lime)}
+.grid{display:grid;grid-template-columns:minmax(0,1.24fr) minmax(260px,.76fr);gap:20px;align-items:start}.panel{border:1px solid var(--line);background:var(--white);border-radius:14px;overflow:hidden}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 15px;border-bottom:1px solid var(--line);font-weight:750}.code-panel{background:var(--code);color:#f3f9ef;border-color:var(--code)}.code-panel .panel-head{border-color:#4d675c;color:var(--lime)}pre{margin:0;padding:15px 0;overflow:auto;font:clamp(12px,1.6vw,18px)/1.65 var(--mono);tab-size:4}.line{display:block;padding:0 16px;min-height:1.65em}.line.active{background:#335947;color:#ecffbf}.line.skipped{color:#adc0b6}.line.error{background:#713b39}
+.config,.explain,.question{padding:15px}.config,.question{border-top:1px solid var(--line)}.config-label,.question strong{display:block;margin-bottom:8px}.choices{display:flex;flex-wrap:wrap;gap:8px}.option{font-size:14px}.option[aria-pressed=true]{background:var(--lime);border-color:#739950}.answers{display:grid;gap:6px}.answer{text-align:left;font-size:15px;padding:6px 11px}.answer[aria-pressed=true]{border-color:var(--green);background:#e6efdb}.feedback{font-weight:650;margin-top:8px}.feedback:empty{margin:0}.canvas-panel .panel-head{flex-wrap:wrap}.canvas-wrap{padding:9px 13px 0}.canvas{position:relative;width:min(100%,355px);aspect-ratio:1;margin:auto;background:#f7f3e8;border:1px solid #9dad9e;border-radius:8px;overflow:hidden;cursor:crosshair}.canvas.green{background:#64c774}.guide{position:absolute;pointer-events:none;inset:0}.left .guide{width:50%;background:#dce9ca;border-right:2px dashed #607b63}.bottom .guide{top:50%;background:#dce9ca;border-top:2px dashed #607b63}.shape{position:absolute;pointer-events:none;transform:translate(-50%,-50%)}.circle{border-radius:50%;background:navy}.star{background:#e5a51b;clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 94%,50% 72%,21% 94%,32% 57%,2% 35%,39% 35%)}.ring{border-radius:50%;border:2px solid #28734c}.status{padding:9px 13px 13px;min-height:62px;font-size:14px;font-family:var(--mono);color:var(--muted)}.keys{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;padding-top:8px}.keys .btn{font-size:13px;padding:4px 8px}.small{font-size:14px;color:var(--muted)}.note{padding:20px;border-radius:14px;border:1px solid var(--line);background:var(--white)}.note h3{margin:0 0 8px}.note p+p{margin-top:10px}table{border-collapse:collapse;width:100%;text-align:left}th,td{padding:8px 14px;border-bottom:1px solid var(--line)}tbody tr:last-child td{border-bottom:0}
+footer{border-top:1px solid var(--line)}.progress{display:flex;align-items:center;gap:12px;color:var(--muted);font:700 13px var(--mono)}progress{width:clamp(45px,13vw,180px);height:9px;accent-color:var(--green)}dialog{width:min(460px,calc(100% - 30px));border:1px solid var(--line);border-radius:16px;background:var(--white);color:var(--ink);padding:20px}dialog::backdrop{background:#142a2380}dialog .answers{margin-top:10px}[hidden]{display:none!important}
+@media(max-width:760px){.grid,.hero{grid-template-columns:1fr}.hero{min-height:0}.hero-code{gap:4px}.demo-grid .canvas-panel{grid-row:2}.brand .small, .key-help{display:none}header,footer{gap:6px}.btn{padding:7px 10px}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header><div class="brand"><span class="mark" aria-hidden="true">if</span><span>CS Principles <span class="small">/ 2.5.1</span></span></div><div class="bar"><button class="btn" id="outline">Slides</button><button class="btn" id="fullscreen" hidden>Full screen</button></div></header>
+<main id="slide" aria-labelledby="title"></main>
+<footer><div class="progress"><span id="counter"></span><progress id="progress" aria-label="Slideshow progress"></progress></div><span class="small key-help">Use ← and → to move between slides</span><div class="bar"><button id="previous" class="btn">← Back</button><button id="next" class="btn primary">Next →</button></div></footer>
+</div>
+<dialog id="menu" aria-labelledby="menu-title"><div class="bar" style="justify-content:space-between"><strong id="menu-title">Slides</strong><button class="btn" id="close-menu">Close</button></div><nav class="answers" id="slide-links" aria-label="Slides"></nav></dialog>
+<script>
+'use strict';
+const slides = [
+  {title:'if Statements', section:'2.5.1 · Conditionals', type:'cover'},
+  {title:'Using if', section:'Try the canvas', intro:'Python calls onMousePress when you click. If mouseX is less than 200, Python runs the indented line and draws a navy circle.', demo:'circle'},
+  {title:'Change the condition', section:'Checkpoint 1', intro:'Switch to mouseY > 200. Try clicking above and below the dashed line.', demo:'circle', options:['mouseX < 200','mouseY > 200'], question:'What happens when the condition is mouseY > 200?', answers:['Circles only draw in the bottom half.','Circles still only draw in the left half.','Circles no longer draw anywhere.','Circles only draw in the top half.'], correct:0, why:'On this canvas, y increases downward. Values greater than 200 are in the bottom half.'},
+  {title:'Multiple lines in the body', section:'Try the canvas', intro:'The indented lines after if form its body. If the condition is true, both drawing commands run. Try clicking on each side.', demo:'pair'},
+  {title:'AP Exam notation', section:'AP Exam note', type:'ap'},
+  {title:'Lines after the body', section:'Checkpoint 2', intro:'The star line is aligned with if and still inside onMousePress. Try clicking on each side, then move the line back inside the if body.', demo:'pair', options:['Star outside the if body','Star inside the if body'], question:'What changes when the star is outside the if body?', answers:['Stars are always drawn.','Stars only draw on the right.','The code crashes.','Nothing changes.'], correct:0, why:'Every click calls onMousePress. After Python checks the condition, it reaches the star line either way.'},
+  {title:'Move the last line', section:'Checkpoint 3', intro:'The if body draws a circle and a ring. Move the star line inside the body, then try both sides.', demo:'ring', options:['Star outside the if body','Star inside the if body'], question:'What happens when the star line is indented inside the if body?', answers:['Stars only draw on the left.','Stars only draw on the right.','Nothing changes.','The code crashes.'], correct:0, why:'The star now runs with the circle and ring, only when mouseX < 200.'},
+  {title:'Comparing values', section:'Python and the AP Exam', type:'compare'},
+  {title:'Count to five', section:'Try the canvas', intro:'Each click adds one to app.clicks. The equality test becomes true on click five, and the background turns green.', demo:'count'},
+  {title:'One equals sign or two?', section:'Checkpoint 4', intro:'Change == to =, then try clicking the canvas. Use == in Python to test whether two values are equal.', demo:'count', options:['==','='], question:'What happens when you use one equals sign in this Python condition?', answers:['The program runs, but the background never turns green.','The background still turns green on the fifth click.','The code does not run because of a syntax error.','The background turns green on the sixth click.'], correct:2, why:'Python uses = for assignment. The line if (app.clicks = 5): is invalid Python syntax.'}
+];
+const main = document.querySelector('#slide');
+const menu = document.querySelector('#menu');
+const previous = document.querySelector('#previous');
+const next = document.querySelector('#next');
+const fullscreen = document.querySelector('#fullscreen');
+const states = slides.map(() => ({choice:0, selected:null, hits:0, marks:[], status:'', active:[], skipped:[]}));
+let current = 0;
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>]/g, character => ({'&':'&amp;', '<':'&lt;', '>':'&gt;'}[character]));
+}
+function heading(slide) {
+  return '<p class="eyebrow">'+slide.section+'</p><h2 id="title" tabindex="-1">'+escapeHTML(slide.title)+'</h2>';
+}
+function renderCode(lines) {
+  return lines.map((line,index) => '<span class="line" data-line="'+index+'">'+escapeHTML(line)+'</span>').join('');
+}
+function model(slide, state) {
+  if (slide.demo === 'count') {
+    const operator = slide.options?.[state.choice] ?? '==';
+    return {count:true, invalid:operator === '=', lines:[
+      "app.background = 'floralWhite'",'app.clicks = 0','','def onMousePress(mouseX, mouseY):',
+      '    app.clicks += 1','    if (app.clicks '+operator+' 5):',"        app.background = 'green'"
+    ], conditionLine:5};
+  }
+  const bottom = slide.demo === 'circle' && state.choice === 1;
+  const outside = Boolean(slide.options) && slide.demo !== 'circle' && state.choice === 0;
+  const actions = [{shape:'circle', size:slide.demo === 'circle' ? 40 : 50, body:true, code:"Circle(mouseX, mouseY, "+(slide.demo === 'circle' ? 20 : 25)+", fill='navy')"}];
+  if (slide.demo === 'ring') actions.push({shape:'ring',size:72,body:true,code:"Circle(mouseX, mouseY, 36, fill=None, border='seaGreen')"});
+  if (slide.demo !== 'circle') actions.push({shape:'star',size:36,body:!outside,code:"Star(mouseX, mouseY, 18, 5, fill='gold')"});
+  return {bottom, actions, conditionLine:1, lines:['def onMousePress(mouseX, mouseY):','    if ('+(bottom?'mouseY > 200':'mouseX < 200')+'):',
+    ...actions.map(action => (action.body?'        ':'    ')+action.code)]};
+}
+function renderDemo(slide) {
+  const state = states[current];
+  const comparison = slide.demo === 'count';
+  return '<div class="grid demo-grid"><div class="panel"><div class="code-panel"><div class="panel-head">Python <span aria-hidden="true">onMousePress</span></div><pre><code id="code"></code></pre></div>'+
+    (slide.options ? '<div class="config"><strong class="config-label">'+(comparison?'Equality operator':slide.demo === 'circle'?'Condition':'Star indentation')+'</strong><div class="choices">'+slide.options.map((option,index) => '<button class="option" data-option="'+index+'" aria-pressed="'+(index === state.choice)+'">'+escapeHTML(option)+'</button>').join('')+'</div></div>' : '')+
+    (slide.question ? '<section class="question" aria-labelledby="question"><strong id="question">'+escapeHTML(slide.question)+'</strong><div class="answers">'+slide.answers.map((answer,index) => '<button class="answer" data-answer="'+index+'" aria-pressed="false">'+escapeHTML(answer)+'</button>').join('')+'</div><p id="feedback" class="feedback" role="status"></p></section>' : '')+'</div>'+
+    '<section class="panel canvas-panel" aria-label="Interactive example"><div class="panel-head"><span>Live canvas <span class="small">400 × 400</span></span><button class="btn small" id="reset">Reset</button></div><div class="canvas-wrap"><div id="canvas" class="canvas" role="button" tabindex="0" aria-label="Click the canvas. Press Enter or Space to click its upper-left quadrant."></div>'+
+    '<div class="keys" aria-label="Click a canvas position">'+(comparison?'<button class="btn" data-point="100,100">Click canvas</button>':['Top left','Top right','Bottom left','Bottom right'].map((label,index)=>'<button class="btn" data-point="'+[100+200*(index%2),index<2?100:300]+'">'+label+'</button>').join(''))+'</div></div><div class="status" id="status" role="status"></div></section></div>';
+}
+function render() {
+  const slide = slides[current];
+  if (slide.type === 'cover') {
+    main.innerHTML = '<section class="hero"><div><p class="eyebrow">'+slide.section+'</p><h1 id="title" tabindex="-1"><code>if</code> Statements</h1><p class="intro">Use a conditional statement to run code only when a test is true.</p><button class="btn primary" id="start">Start lesson →</button></div><div class="hero-code"><span>if (mouseX &lt; 200):</span><span>&nbsp;&nbsp;&nbsp;&nbsp;Circle(…)</span></div></section>';
+    document.querySelector('#start').onclick = () => navigate(1);
+  } else if (slide.type === 'ap') {
+    main.innerHTML = heading(slide)+'<p class="intro">Python uses indentation to mark the body. The AP Exam encloses the body in curly braces.</p><div class="grid"><section class="panel code-panel"><div class="panel-head">AP Exam pseudocode</div><pre><code>'+renderCode(['IF (condition)','{','    conditional body','}'])+'</code></pre></section><section class="panel code-panel"><div class="panel-head">Python</div><pre><code>'+renderCode(['if (condition):','    # conditional body'])+'</code></pre></section></div>';
+  } else if (slide.type === 'compare') {
+    const comparisons = [['<','<','less than'],['<=','≤','less than or equal to'],['==','=','equal to'],['!=','≠','not equal to'],['>','>','greater than'],['>=','≥','greater than or equal to']];
+    main.innerHTML = heading(slide)+'<p class="intro">When writing Python, use <code>==</code> to test equality. On the AP Exam, the same test is written with one equals sign.</p><div class="panel"><table><thead><tr><th scope="col">Python</th><th scope="col">AP Exam</th><th scope="col">Is x … y?</th></tr></thead><tbody>'+comparisons.map(([python,ap,meaning])=>'<tr><td><code>x '+escapeHTML(python)+' y</code></td><td><code>x '+escapeHTML(ap)+' y</code></td><td>'+meaning+'</td></tr>').join('')+'</tbody></table></div>';
+  } else {
+    main.innerHTML = heading(slide)+'<p class="intro">'+escapeHTML(slide.intro)+'</p>'+renderDemo(slide);
+    bindDemo(slide);
+  }
+  document.querySelector('#counter').textContent = (current+1)+' / '+slides.length;
+  const progress = document.querySelector('#progress');
+  progress.max = slides.length;
+  progress.value = current+1;
+  previous.disabled = current === 0;
+  next.disabled = current === slides.length-1;
+  document.querySelectorAll('#slide-links button').forEach((button,index) => {
+    if (index === current) button.setAttribute('aria-current','page');
+    else button.removeAttribute('aria-current');
+  });
+}
+function navigate(index) {
+  if (index < 0 || index >= slides.length || index === current) return;
+  current = index;
+  render();
+  document.querySelector('#title').focus({preventScroll:true});
+  window.scrollTo(0,0);
+}
+function bindDemo(slide) {
+  const state = states[current];
+  const canvas = document.querySelector('#canvas');
+  const code = document.querySelector('#code');
+  const status = document.querySelector('#status');
+  const options = [...main.querySelectorAll('[data-option]')];
+  const answers = [...main.querySelectorAll('[data-answer]')];
+  const feedback = document.querySelector('#feedback');
+  function refresh() {
+    const example = model(slide,state);
+    code.innerHTML = renderCode(example.lines);
+    canvas.className = 'canvas '+(example.count ? (state.hits >= 5 ? 'green' : '') : (example.bottom ? 'bottom' : 'left'));
+    canvas.innerHTML = example.count ? '' : '<div class="guide"></div>';
+    for (const mark of state.marks) {
+      const shape = document.createElement('span');
+      shape.className = 'shape '+mark.shape;
+      shape.style.cssText = 'left:'+mark.x/4+'%;top:'+mark.y/4+'%;width:'+mark.size/4+'%;height:'+mark.size/4+'%';
+      canvas.append(shape);
+    }
+    state.active.forEach(index => code.children[index].classList.add('active'));
+    state.skipped.forEach(index => code.children[index].classList.add('skipped'));
+    if (example.invalid) code.children[example.conditionLine].classList.add('error');
+    status.textContent = example.invalid ? 'SyntaxError on the if line. Python cannot start the program.' : state.status || (example.count ? 'Clicks: 0' : 'Click the canvas to test the condition.');
+    options.forEach((button,index) => button.setAttribute('aria-pressed',index === state.choice));
+    updateAnswer();
+  }
+  function updateAnswer() {
+    if (!feedback) return;
+    answers.forEach((button,index) => button.setAttribute('aria-pressed',index === state.selected));
+    feedback.textContent = state.selected === null ? '' : (state.selected === slide.correct ? 'Correct. '+slide.why : 'Try that change in the example, then choose again.');
+  }
+  function hit(x,y) {
+    const example = model(slide,state);
+    if (example.invalid) return;
+    if (example.count) {
+      state.hits += 1;
+      const matches = state.hits === 5;
+      state.active = matches ? [4,5,6] : [4,5];
+      state.skipped = matches ? [] : [6];
+      state.status = 'Clicks: '+state.hits+' · condition: '+(matches?'True':'False')+(matches?' · background set to green':'');
+    } else {
+      const matches = example.bottom ? y > 200 : x < 200;
+      state.active = [1];
+      state.skipped = [];
+      const drawn = [];
+      example.actions.forEach((action,index) => {
+        if (matches || !action.body) {
+          state.marks.push({shape:action.shape,size:action.size,x,y});
+          state.active.push(index+2);
+          drawn.push(action.shape);
+        } else state.skipped.push(index+2);
+      });
+      state.status = '('+x+', '+y+') · '+(matches?'True':'False')+' · '+(drawn.length?'Drew '+drawn.join(', '):'No shape drawn');
+    }
+    refresh();
+  }
+  function reset() {
+    Object.assign(state,{hits:0,marks:[],status:'',active:[],skipped:[]});
+    refresh();
+  }
+  canvas.addEventListener('click',event => {
+    const bounds = canvas.getBoundingClientRect();
+    const x = Math.max(0,Math.min(399,Math.floor(400*(event.clientX-bounds.left)/bounds.width)));
+    const y = Math.max(0,Math.min(399,Math.floor(400*(event.clientY-bounds.top)/bounds.height)));
+    hit(x,y);
+  });
+  canvas.addEventListener('keydown',event => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      hit(100,100);
+    }
+  });
+  main.querySelectorAll('[data-point]').forEach(button => button.onclick = () => hit(...button.dataset.point.split(',').map(Number)));
+  options.forEach((button,index) => button.onclick = () => {
+    if (state.choice === index) return;
+    state.choice = index;
+    reset();
+  });
+  answers.forEach((button,index) => button.onclick = () => {
+    state.selected = index;
+    updateAnswer();
+  });
+  document.querySelector('#reset').onclick = reset;
+  refresh();
+}
+document.querySelector('#slide-links').innerHTML = slides.map((slide,index) => '<button class="answer" data-slide="'+index+'">'+(index+1)+'. '+escapeHTML(slide.title)+'</button>').join('');
+document.querySelectorAll('[data-slide]').forEach(button => button.onclick = () => {
+  menu.close();
+  navigate(Number(button.dataset.slide));
+});
+document.querySelector('#outline').onclick = () => menu.showModal();
+document.querySelector('#close-menu').onclick = () => menu.close();
+previous.onclick = () => navigate(current-1);
+next.onclick = () => navigate(current+1);
+document.addEventListener('keydown',event => {
+  if (menu.open || event.altKey || event.ctrlKey || event.metaKey) return;
+  if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+    event.preventDefault();
+    navigate(current+(event.key === 'ArrowRight'?1:-1));
+  }
+});
+if (document.fullscreenEnabled) {
+  fullscreen.hidden = false;
+  fullscreen.onclick = async () => {
+    try {
+      if (document.fullscreenElement) await document.exitFullscreen();
+      else await document.documentElement.requestFullscreen();
+    } catch {
+      fullscreen.hidden = true;
+    }
+  };
+  document.addEventListener('fullscreenchange',() => {
+    fullscreen.textContent = document.fullscreenElement ? 'Exit full screen' : 'Full screen';
+  });
+}
+render();
+</script>
+</body>
+</html>
